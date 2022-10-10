@@ -1,0 +1,21 @@
+{
+    "name": "igomis/phpserve",
+    "description": "Solucions exercicis",
+    "license" : "MIT",
+    "autoload": {
+        "psr-4": {
+            "Igomis\\Phpserve\\": "default_site/src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "igomis",
+            "email": "igomis@cipfpbatoi.es"
+        }
+    ],
+    "require-dev": {
+        "codeception/codeception": "^5.0",
+        "codeception/module-phpbrowser": "^3.0",
+        "codeception/module-asserts": "^3.0"
+    }
+}
