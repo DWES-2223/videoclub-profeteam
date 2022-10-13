@@ -4,6 +4,7 @@ class IniciCest
 {
     const INICI = '/inici.php';
     const INICI2 = '/inici2.php';
+    const INICI3 = '/inici3.php';
 
     public function try320Test(AcceptanceTester $I)
     {
@@ -33,6 +34,16 @@ class IniciCest
         $I->seeInSource('<p>Este cliente tiene 3 elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo</p>');
         $I->seeInSource('<p>Este cliente no tiene alquilado ningún elemento</p>');
 
+    }
+
+    public function try327Test(AcceptanceTester $I)
+    {
+        $I->amOnPage(self::INICI3);
+        $I->see('Incluido Soporte6');
+        $I->see('Listado de los 7 productos disponibles:');
+        $I->see('Incluido Socio1');
+        $I->see('Alquilado soporte a: Pablo Picasso');
+        $I->seeInSource('<strong>Cliente 0:</strong>Amancio Ortega<br/>Alquiles actuales: 0');
     }
 
 }

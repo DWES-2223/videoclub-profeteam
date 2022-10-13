@@ -31,7 +31,7 @@ class Cliente
     }
 
     public function muestraResumen(){
-        echo $this->nombre.': '.count($this->soportesAlquilados);
+        echo "<p><strong>Cliente $this->numero:</strong>$this->nombre<br/>Alquiles actuales: ".count($this->soportesAlquilados)."</p>";
     }
 
     public function tienesAlquilado(Soporte $s):bool{

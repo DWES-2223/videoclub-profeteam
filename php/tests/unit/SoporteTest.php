@@ -17,7 +17,7 @@ class SoporteTest extends \Codeception\Test\Unit
     // tests
     public function testPreuAmbIva()
     {
-        $soporte = new Soporte("Tenet", 22, 3);
+        $soporte = new CintaVideo("Tenet", 22, 3,100);
         $this->assertEquals(3.63,$soporte->getPrecioConIVA());
     }
 

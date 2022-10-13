@@ -7,7 +7,7 @@ include "Juego.php";
 
 // Soporte
 
-$soporte1 = new Soporte("Tenet", 22, 3);
+$soporte1 = new CintaVideo("Tenet", 22, 3,100);
 echo "<strong>" . $soporte1->titulo . "</strong>";
 echo "<br>Precio: " . $soporte1->getPrecio() . " euros";
 echo "<br>Precio IVA incluido: " . $soporte1->getPrecioConIVA() . " euros";
