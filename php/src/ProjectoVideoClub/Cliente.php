@@ -1,10 +1,13 @@
 <?php
+namespace Dwes\ProjecteVideoClub;
+
 class Cliente
 {
     protected $numSoportesAlquilados = 0;
     protected $soportesAlquilados = array();
 
-    public function __construct(protected $nombre,protected $numero,protected $maxAlquilerConcurrente=3) {}
+    public function __construct(protected $nombre, protected $numero, protected $maxAlquilerConcurrente=3)
+    {}
 
     /**
      * @return mixed
@@ -30,20 +33,24 @@ class Cliente
         return $this->numSoportesAlquilados;
     }
 
-    public function muestraResumen(){
-        echo "<p><strong>Cliente $this->numero:</strong>$this->nombre<br/>Alquiles actuales: ".count($this->soportesAlquilados)."</p>";
+    public function muestraResumen()
+    {
+        echo "<p><strong>Cliente $this->numero:</strong>$this->nombre<br/>Alquiles actuales: "
+            .count($this->soportesAlquilados)."</p>";
     }
 
-    public function tienesAlquilado(Soporte $s):bool{
+    public function tienesAlquilado(Soporte $s):bool
+    {
         return isset($this->soportesAlquilados[$s->getNumero()]);
     }
 
-    public function retornar(int $numSoporte): bool{
+    public function retornar(int $numSoporte): mixed
+    {
         if ($this->numSoportesAlquilados == 0) {
             echo '<p>Este cliente no tiene alquilado ningún elemento</p>';
             return false;
         }
-        if (isset($this->soportesAlquilados[$numSoporte])){
+        if (isset($this->soportesAlquilados[$numSoporte])) {
             $this->numSoportesAlquilados --;
             unset($this->soportesAlquilados[$numSoporte]);
             echo 'Devolución correcta';
@@ -53,15 +60,16 @@ class Cliente
         return false;
     }
 
-    public function listarAlquileres(): void{
+    public function listarAlquileres(): void
+    {
         echo "<p>El cliente tiene $this->maxAlquilerConcurrente soporte alquilados.</p>";
-        foreach ($this->soportesAlquilados as $soporte){
+        foreach ($this->soportesAlquilados as $soporte) {
             $soporte->muestraResumen();
         }
 
     }
 
-    public function alquilar(Soporte $s):bool
+    public function alquilar(Soporte $s):mixed
     {
         if ($this->tienesAlquilado($s)) {
             echo '<p>El cliente ya tiene alquilado el soporte <strong'.$s->titulo.'</strong</p>';
@@ -69,14 +77,15 @@ class Cliente
             return false;
         }
         if ($this->numSoportesAlquilados >= $this->maxAlquilerConcurrente) {
-            echo "<p>Este cliente tiene $this->maxAlquilerConcurrente elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo</p>";
+            echo "<p>Este cliente tiene $this->maxAlquilerConcurrente elementos alquilados. ".
+                "No puede alquilar más en este videoclub hasta que no devuelva algo</p>";
             return false;
         }
         $this->soportesAlquilados[$s->getNumero()] = $s;
         $this->numSoportesAlquilados ++;
         echo '<p><strong>Alquilado soporte a: </strong>'.$this->nombre.'</p>';
         $s->muestraResumen();
-        return true;
+        return $this;
 
     }
 }

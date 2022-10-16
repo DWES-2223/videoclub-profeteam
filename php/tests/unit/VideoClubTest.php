@@ -1,4 +1,7 @@
 <?php
+use Dwes\ProjecteVideoClub\Videoclub;
+use Dwes\ProjecteVideoClub\Cliente;
+use Dwes\ProjecteVideoClub\Dvd;
 
 class VideoClubTest extends \Codeception\Test\Unit
 {
@@ -11,13 +14,15 @@ class VideoClubTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        include_once('./src/VideoClub.php');
+        $path = './src/ProjectoVideoClub';
+        include_once("$path/Videoclub.php");
+
     }
 
     // tests
     public function testAltaSoporte()
     {
-        $vc = new VideoClub('El palmar');
+        $vc = new Videoclub('El palmar');
         $vc->incluirJuego("God of War", 19.99, "PS4", 1, 1);
         $vc->incluirJuego("The Last of Us Part II", 49.99, "PS4", 1, 1);
         $vc->incluirDvd("Torrente", 4.5, "es","16:9");
@@ -31,15 +36,10 @@ class VideoClubTest extends \Codeception\Test\Unit
 
     public function testAltaSocio()
     {
-        $vc = new VideoClub('El palmar');
+        $vc = new Videoclub('El palmar');
         $vc->incluirSocio("Amancio Ortega");
         $vc->incluirSocio("Pablo Picasso", 2);
         $this->assertEquals(2,$vc->getNumSocios());
         $this->assertEquals(new Cliente("Pablo Picasso", 1,2),$vc->getSocios(1));
     }
-
-
-
-
-
 }

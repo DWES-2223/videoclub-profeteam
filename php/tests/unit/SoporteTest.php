@@ -1,4 +1,6 @@
 <?php
+use Dwes\ProjecteVideoClub\Soporte;
+use Dwes\ProjecteVideoClub\CintaVideo;
 
 class SoporteTest extends \Codeception\Test\Unit
 {
@@ -9,9 +11,9 @@ class SoporteTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        include_once('./src/Soporte.php');
-
-
+        $path = './src/ProjectoVideoClub';
+        include_once("$path/Soporte.php");
+        include_once("$path/CintaVideo.php");
     }
 
     // tests

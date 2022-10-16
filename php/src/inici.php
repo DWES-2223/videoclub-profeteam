@@ -1,9 +1,14 @@
 <?php
-include "Soporte.php";
-include "CintaVideo.php";
-include "Dvd.php";
-include "Juego.php";
 
+include_once "ProjectoVideoClub/Soporte.php";
+include_once "ProjectoVideoClub/CintaVideo.php";
+include_once "ProjectoVideoClub/Dvd.php";
+include_once "ProjectoVideoClub/Juego.php";
+
+use Dwes\ProjecteVideoClub\Soporte;
+use Dwes\ProjecteVideoClub\CintaVideo;
+use Dwes\ProjecteVideoClub\Dvd;
+use Dwes\ProjecteVideoClub\Juego;
 
 // Soporte
 

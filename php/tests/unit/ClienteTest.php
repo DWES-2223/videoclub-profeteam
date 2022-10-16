@@ -1,4 +1,7 @@
 <?php
+use Dwes\ProjecteVideoClub\Cliente;
+use Dwes\ProjecteVideoClub\Juego;
+use Dwes\ProjecteVideoClub\CintaVideo;
 
 class ClienteTest extends \Codeception\Test\Unit
 {
@@ -11,11 +14,10 @@ class ClienteTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        include_once('./src/Cliente.php');
-        include_once('./src/Juego.php');
-        include_once('./src/CintaVideo.php');
-
-
+        $path = './src/ProjectoVideoClub';
+        include_once("$path/Cliente.php");
+        include_once("$path/Juego.php");
+        include_once("$path/CintaVideo.php");
     }
 
     // tests

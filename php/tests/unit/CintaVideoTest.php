@@ -1,4 +1,5 @@
 <?php
+use Dwes\ProjecteVideoClub\CintaVideo;
 
 class CintaVideoTest extends \Codeception\Test\Unit
 {
@@ -9,9 +10,8 @@ class CintaVideoTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        include_once('./src/CintaVideo.php');
-
-
+        $path = './src/ProjectoVideoClub';
+        include_once("$path/CintaVideo.php");
     }
     // tests
     public function testPreuAmbIva()

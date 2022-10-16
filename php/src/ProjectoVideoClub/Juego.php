@@ -1,15 +1,26 @@
 <?php
-include_once('Soporte.php');
+namespace Dwes\ProjecteVideoClub;
+
+require_once ('Soporte.php');
+use Dwes\ProjecteVideoClub\Soporte;
 
 class Juego extends Soporte
 {
-    public function __construct($titulo,$numero,$precio,protected $consola,protected $minNumJugadores,protected $maxNumJugadores) {
-        parent::__construct($titulo,$numero,$precio);
+    public function __construct(
+        $titulo,
+        $numero,
+        $precio,
+        protected $consola,
+        protected $minNumJugadores,
+        protected $maxNumJugadores
+    ) {
+        parent::__construct($titulo, $numero, $precio);
     }
 
-    public function muestraJugadoresPosibles(){
+    public function muestraJugadoresPosibles()
+    {
         $output = "Para ";
-        $output .= match (true){
+        $output .= match (true) {
             $this->minNumJugadores === $this->maxNumJugadores => $this->minNumJugadores,
             default => $this->minNumJugadores.' a '.$this->maxNumJugadores,
         };

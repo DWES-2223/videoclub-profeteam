@@ -1,10 +1,15 @@
 <?php
-include_once('Resumible.php');
+namespace Dwes\ProjecteVideoClub;
+
+require_once ('Resumible.php');
+use Dwes\ProjecteVideoClub\Resumible;
+
 abstract class Soporte implements Resumible
 {
     private const IVA = 0.21;
 
-    public function __construct(public $titulo,protected $numero,protected $precio){}
+    public function __construct(public $titulo, protected $numero, protected $precio)
+    {}
 
 
     /**

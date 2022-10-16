@@ -1,4 +1,5 @@
 <?php
+use Dwes\ProjecteVideoClub\Juego;
 
 class JuegoTest extends \Codeception\Test\Unit
 {
@@ -11,7 +12,8 @@ class JuegoTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        include_once('./src/Juego.php');
+        $path = './src/ProjectoVideoClub';
+        include_once("$path/Juego.php");
     }
 
     // tests
