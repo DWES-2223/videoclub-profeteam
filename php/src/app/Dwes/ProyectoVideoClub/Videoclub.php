@@ -1,17 +1,9 @@
 <?php
-namespace Dwes\ProjecteVideoClub;
+namespace Dwes\ProyectoVideoClub;
 
-include_once("Soporte.php");
-include_once("CintaVideo.php");
-include_once("Dvd.php");
-include_once("Juego.php");
-include_once("Cliente.php");
 
-use Dwes\ProjecteVideoClub\CintaVideo;
-use Dwes\ProjecteVideoClub\Cliente;
-use Dwes\ProjecteVideoClub\Dvd;
-use Dwes\ProjecteVideoClub\Juego;
-use Dwes\ProjecteVideoClub\Soporte;
+use Dwes\ProyectoVideoClub\Util\ClienteNoEncontradoException;
+use Dwes\ProyectoVideoClub\Util\VideoclubException;
 
 class Videoclub
 {
@@ -114,8 +106,29 @@ class Videoclub
 
     public function alquilaSocioProducto($numeroCliente, $numSoporte): mixed
     {
-        $cliente = $this->socios[$numeroCliente];
-        $cliente->alquilar($this->productos[$numSoporte]);
+        try {
+            if (!isset($this->socios[$numeroCliente])){
+                throw new ClienteNoEncontradoException("<p>Cliente $numeroCliente no existe</p>");
+            }
+            $cliente = $this->socios[$numeroCliente];
+            $cliente->alquilar($this->productos[$numSoporte]);
+            $this->productos[$numSoporte]->alquilado = true;
+        } catch (VideoclubException $e){
+            echo $e->getMessage();
+        }
+
+        return $this;
+    }
+
+    public function retornarSocioProducto($numeroCliente, $numSoporte): mixed
+    {
+        try {
+            $cliente = $this->socios[$numeroCliente];
+            $cliente->alquilar($this->productos[$numSoporte]);
+            $this->productos[$numSoporte]->alquilado = true;
+        } catch (VideoclubException $e){
+            echo $e->getMessage();
+        }
 
         return $this;
     }

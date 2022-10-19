@@ -1,5 +1,10 @@
 <?php
-namespace Dwes\ProjecteVideoClub;
+namespace Dwes\ProyectoVideoClub;
+
+use Dwes\ProyectoVideoClub\Util\CupoSuperadoException;
+use Dwes\ProyectoVideoClub\Util\SoporteNoEncontradoException;
+use Dwes\ProyectoVideoClub\Util\SoporteYaAlquiladoException;
+use function PHPUnit\Framework\throwException;
 
 class Cliente
 {
@@ -47,8 +52,8 @@ class Cliente
     public function retornar(int $numSoporte): mixed
     {
         if ($this->numSoportesAlquilados == 0) {
-            echo '<p>Este cliente no tiene alquilado ningún elemento</p>';
-            return false;
+            throw new SoporteNoEncontradoException(
+            '<p>Este cliente no tiene alquilado ningún elemento</p>');
         }
         if (isset($this->soportesAlquilados[$numSoporte])) {
             $this->numSoportesAlquilados --;
@@ -56,8 +61,8 @@ class Cliente
             echo 'Devolución correcta';
             return true;
         }
-        echo '<p>No se ha podido encontrar el soporte en los alquileres de este cliente</p>';
-        return false;
+        throw new SoporteNoEncontradoException(
+        '<p>No se ha podido encontrar el soporte en los alquileres de este cliente</p>');
     }
 
     public function listarAlquileres(): void
@@ -72,14 +77,13 @@ class Cliente
     public function alquilar(Soporte $s):mixed
     {
         if ($this->tienesAlquilado($s)) {
-            echo '<p>El cliente ya tiene alquilado el soporte <strong'.$s->titulo.'</strong</p>';
-
-            return false;
+            throw new
+            SoporteYaAlquiladoException("<p>El cliente ya tiene alquilado el soporte <strong $s->titulo </strong</p>");
         }
         if ($this->numSoportesAlquilados >= $this->maxAlquilerConcurrente) {
-            echo "<p>Este cliente tiene $this->maxAlquilerConcurrente elementos alquilados. ".
-                "No puede alquilar más en este videoclub hasta que no devuelva algo</p>";
-            return false;
+            throw new CupoSuperadoException(
+            "<p>Este cliente tiene $this->maxAlquilerConcurrente elementos alquilados. ".
+            "No puede alquilar más en este videoclub hasta que no devuelva algo</p>");
         }
         $this->soportesAlquilados[$s->getNumero()] = $s;
         $this->numSoportesAlquilados ++;

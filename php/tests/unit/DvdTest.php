@@ -1,5 +1,5 @@
 <?php
-use Dwes\ProjecteVideoClub\Dvd;
+use Dwes\ProyectoVideoClub\Dvd;
 
 class DvdTest extends \Codeception\Test\Unit
 {
@@ -10,8 +10,7 @@ class DvdTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        $path = './src/ProjectoVideoClub';
-        include_once("$path/Dvd.php");
+        include_once("./src/autoload.php");
     }
 
     // tests

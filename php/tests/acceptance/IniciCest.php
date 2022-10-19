@@ -46,4 +46,10 @@ class IniciCest
         $I->seeInSource('<strong>Cliente 0:</strong>Amancio Ortega<br/>Alquiles actuales: 0');
     }
 
+    public function try333Test(AcceptanceTester $I)
+    {
+        $I->amOnPage(self::INICI3);
+        $I->seeInSource('<p>Cliente 12 no existe</p>');
+    }
+
 }

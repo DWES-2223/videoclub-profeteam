@@ -1,12 +1,11 @@
 <?php
-namespace Dwes\ProjecteVideoClub;
+namespace Dwes\ProyectoVideoClub;
 
-require_once ('Resumible.php');
-use Dwes\ProjecteVideoClub\Resumible;
 
 abstract class Soporte implements Resumible
 {
     private const IVA = 0.21;
+    public $alquilado = false;
 
     public function __construct(public $titulo, protected $numero, protected $precio)
     {}

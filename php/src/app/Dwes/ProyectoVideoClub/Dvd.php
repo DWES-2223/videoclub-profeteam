@@ -1,8 +1,6 @@
 <?php
-namespace Dwes\ProjecteVideoClub;
+namespace Dwes\ProyectoVideoClub;
 
-require_once ('Dvd.php');
-use Dwes\ProjecteVideoClub\Soporte;
 
 class Dvd extends Soporte
 {

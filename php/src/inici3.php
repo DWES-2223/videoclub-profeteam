@@ -1,7 +1,7 @@
 <?php
-include_once("ProjectoVideoClub/Videoclub.php");
+include_once("./autoload.php");
 
-use Dwes\ProjecteVideoClub\Videoclub;
+use Dwes\ProyectoVideoClub\Videoclub;
 
 $vc = new Videoclub("Severo 8A");
 
@@ -27,6 +27,6 @@ $vc->alquilaSocioProducto(1, 2)->alquilaSocioProducto(1, 3)->alquilaSocioProduct
 //alquilo el soporte 6 al socio 1.
 //no se puede porque el socio 1 tiene 2 alquileres como máximo
 $vc->alquilaSocioProducto(1, 6);
-
+$vc->alquilaSocioProducto(12,12);
 //listo los socios
 $vc->listarSocios();

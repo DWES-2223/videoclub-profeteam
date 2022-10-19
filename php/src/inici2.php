@@ -1,12 +1,10 @@
 <?php
-include_once "ProjectoVideoClub/CintaVideo.php";
-include_once "ProjectoVideoClub/Dvd.php";
-include_once "ProjectoVideoClub/Juego.php";
-include_once "ProjectoVideoClub/Cliente.php";
-use Dwes\ProjecteVideoClub\CintaVideo;
-use Dwes\ProjecteVideoClub\Dvd;
-use Dwes\ProjecteVideoClub\Juego;
-use Dwes\ProjecteVideoClub\Cliente;
+include_once "./autoload.php";
+
+use Dwes\ProyectoVideoClub\CintaVideo;
+use Dwes\ProyectoVideoClub\Dvd;
+use Dwes\ProyectoVideoClub\Juego;
+use Dwes\ProyectoVideoClub\Cliente;
 
 //instanciamos un par de objetos Clientee
 $cliente1 = new Cliente("Bruce Wayne", 23);

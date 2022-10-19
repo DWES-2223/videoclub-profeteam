@@ -1,11 +1,12 @@
 <?php
-use Dwes\ProjecteVideoClub\Cliente;
-use Dwes\ProjecteVideoClub\Juego;
-use Dwes\ProjecteVideoClub\CintaVideo;
+use Dwes\ProyectoVideoClub\Cliente;
+use Dwes\ProyectoVideoClub\Juego;
+use Dwes\ProyectoVideoClub\CintaVideo;
 
 class ClienteTest extends \Codeception\Test\Unit
 {
     const IGNASI_GOMIS = "Ignasi Gomis";
+    protected $exceptions;
 
     /**
      * @var \UnitTester
@@ -14,10 +15,9 @@ class ClienteTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        $path = './src/ProjectoVideoClub';
-        include_once("$path/Cliente.php");
-        include_once("$path/Juego.php");
-        include_once("$path/CintaVideo.php");
+        include_once("./src/autoload.php");
+        $this->exceptions = file_exists('./src/app/Dwes/ProyectoVideoClub/Util/VideoclubException.php');
+
     }
 
     // tests
@@ -31,12 +31,24 @@ class ClienteTest extends \Codeception\Test\Unit
         $cliente = new Cliente(self::IGNASI_GOMIS, 22);
         $juego = new Juego("The Last of Us Part II", 26, 49.99, "PS4", 1, 1);
         $cinta = new CintaVideo("Tenet", 22, 3,100);
+        $juego2 = new Juego('Walking Dead',23,50,"PS5",1,4);
+        $juego3 = new Juego('Fear Walking Dead',23,50,"PS5",1,4);
         $cliente->alquilar($juego);
         $this->assertEquals(1,$cliente->getNumSoportesAlquilados());
         $cliente->alquilar($cinta);
         $this->assertEquals(2,$cliente->getNumSoportesAlquilados());
-        $this->assertEquals(false,$cliente->alquilar($cinta));
+        if ($this->exceptions) {
+            $this->expectException(\Dwes\ProyectoVideoClub\Util\SoporteYaAlquiladoException::class);
+            $cliente->alquilar($cinta);
+        } else {
+            $this->assertEquals(false,$cliente->alquilar($cinta));
+        }
         $this->assertEquals(2,$cliente->getNumSoportesAlquilados());
+        if ($this->exceptions) {
+            $cliente->alquilar($juego2);
+            $this->expectException(\Dwes\ProyectoVideoClub\Util\CupoSuperadoException::class);
+            $cliente->alquilar($juego3);
+        }
     }
 
     public function testRetornar(){
@@ -46,14 +58,14 @@ class ClienteTest extends \Codeception\Test\Unit
         $cliente->alquilar($juego);
         $cliente->alquilar($cinta);
         $this->assertEquals(true,$cliente->retornar(26));
-        $this->assertEquals(false,$cliente->retornar(26));
-        $this->assertEquals(1,$cliente->getNumSoportesAlquilados());
-        $this->assertEquals(true,$cliente->retornar(22));
-        $this->assertEquals(0,$cliente->getNumSoportesAlquilados());
+        if ($this->exceptions) {
+            $this->expectException(\Dwes\ProyectoVideoClub\Util\SoporteNoEncontradoException::class);
+            $cliente->retornar(21);
+        } else {
+            $this->assertEquals(false, $cliente->retornar(26));
+        }
+        $this->assertEquals(1, $cliente->getNumSoportesAlquilados());
+        $this->assertEquals(true, $cliente->retornar(22));
+        $this->assertEquals(0, $cliente->getNumSoportesAlquilados());
     }
-
-
-
-
-
 }

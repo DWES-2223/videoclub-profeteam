@@ -1,5 +1,5 @@
 <?php
-use Dwes\ProjecteVideoClub\CintaVideo;
+use Dwes\ProyectoVideoClub\CintaVideo;
 
 class CintaVideoTest extends \Codeception\Test\Unit
 {
@@ -10,18 +10,12 @@ class CintaVideoTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        $path = './src/ProjectoVideoClub';
-        include_once("$path/CintaVideo.php");
+        include_once("./src/autoload.php");
     }
     // tests
     public function testPreuAmbIva()
     {
-        $cinta = new CintaVideo("Tenet", 22, 3,100);
-        $this->assertEquals(3.63,$cinta->getPrecioConIVA());
+        $cinta = new CintaVideo("Tenet", 22, 3, 100);
+        $this->assertEquals(3.63, $cinta->getPrecioConIVA());
     }
-
-
-
-
-
 }

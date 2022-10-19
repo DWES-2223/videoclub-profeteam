@@ -1,5 +1,5 @@
 <?php
-namespace Dwes\ProjecteVideoClub;
+namespace Dwes\ProyectoVideoClub;
 
 interface Resumible
 {

@@ -1,14 +1,10 @@
 <?php
 
-include_once "ProjectoVideoClub/Soporte.php";
-include_once "ProjectoVideoClub/CintaVideo.php";
-include_once "ProjectoVideoClub/Dvd.php";
-include_once "ProjectoVideoClub/Juego.php";
+include_once "./autoload.php";
 
-use Dwes\ProjecteVideoClub\Soporte;
-use Dwes\ProjecteVideoClub\CintaVideo;
-use Dwes\ProjecteVideoClub\Dvd;
-use Dwes\ProjecteVideoClub\Juego;
+use Dwes\ProyectoVideoClub\CintaVideo;
+use Dwes\ProyectoVideoClub\Dvd;
+use Dwes\ProyectoVideoClub\Juego;
 
 // Soporte
 
@@ -42,3 +38,4 @@ echo "<strong>" . $miJuego->titulo . "</strong>";
 echo "<br>Precio: " . $miJuego->getPrecio() . " euros";
 echo "<br>Precio IVA incluido: " . $miJuego->getPrecioConIva() . " euros";
 $miJuego->muestraResumen();
+

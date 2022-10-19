@@ -1,7 +1,7 @@
 <?php
-use Dwes\ProjecteVideoClub\Videoclub;
-use Dwes\ProjecteVideoClub\Cliente;
-use Dwes\ProjecteVideoClub\Dvd;
+use Dwes\ProyectoVideoClub\Videoclub;
+use Dwes\ProyectoVideoClub\Cliente;
+use Dwes\ProyectoVideoClub\Dvd;
 
 class VideoClubTest extends \Codeception\Test\Unit
 {
@@ -14,9 +14,7 @@ class VideoClubTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        $path = './src/ProjectoVideoClub';
-        include_once("$path/Videoclub.php");
-
+        include_once("./src/autoload.php");
     }
 
     // tests
@@ -41,5 +39,14 @@ class VideoClubTest extends \Codeception\Test\Unit
         $vc->incluirSocio("Pablo Picasso", 2);
         $this->assertEquals(2,$vc->getNumSocios());
         $this->assertEquals(new Cliente("Pablo Picasso", 1,2),$vc->getSocios(1));
+    }
+
+    public function testProductoAlquilado(){
+        $vc = new Videoclub('El palmar');
+        $vc->incluirSocio("Amancio Ortega");
+        $vc->incluirDvd("Torrente", 4.5, "es","16:9");
+        $this->assertEquals(false,$vc->getProductos(0)->alquilado);
+        $vc->alquilaSocioProducto(0,0);
+        $this->assertEquals(true,$vc->getProductos(0)->alquilado);
     }
 }
