@@ -3,6 +3,8 @@ namespace Dwes\ProyectoVideoClub;
 
 
 use Dwes\ProyectoVideoClub\Util\ClienteNoEncontradoException;
+use Dwes\ProyectoVideoClub\Util\CupoSuperadoException;
+use Dwes\ProyectoVideoClub\Util\SoporteYaAlquiladoException;
 use Dwes\ProyectoVideoClub\Util\VideoclubException;
 
 class Videoclub
@@ -112,7 +114,6 @@ class Videoclub
             }
             $cliente = $this->socios[$numeroCliente];
             $cliente->alquilar($this->productos[$numSoporte]);
-            $this->productos[$numSoporte]->alquilado = true;
         } catch (VideoclubException $e){
             echo $e->getMessage();
         }
@@ -120,16 +121,66 @@ class Videoclub
         return $this;
     }
 
-    public function retornarSocioProducto($numeroCliente, $numSoporte): mixed
+    public function alquilaSocioProductos(int $numSocio,array $numerosProductos): mixed
+    {
+        try {
+            // Cliente existe
+            if (!isset($this->socios[$numSocio])){
+                throw new ClienteNoEncontradoException("<p>Cliente $numeroCliente no existe</p>");
+            }
+            // No va a alquilar mes elements dels que pot
+            $cliente = $this->socios[$numSocio];
+            $maxAlquiler = $cliente->getMaxAlquilerConcurrente() - $cliente->getNumSoportesAlquilados();
+            if ($maxAlquiler < count($numerosProductos)){
+                throw new CupoSuperadoException(
+                    "<p>Este cliente solo puede alquilar".$maxAlquiler. "Soportes</p>");
+            }
+            // Els elements no estan llogats
+            foreach ($numerosProductos as $producto)
+            {
+                if ($this->productos[$producto]->alquilado) {
+                    throw new SoporteYaAlquiladoException("<p>El soporte $producto ya está alquilado</p>");
+                }
+            }
+            foreach ($numerosProductos as $producto)
+            {
+                $this->alquilaSocioProducto($numSocio,$producto);
+            }
+            return $this;
+        } catch (VideoclubException $e){
+            echo $e->getMessage();
+            return null;
+        }
+    }
+
+    public function devolverSocioProducto($numeroCliente, $numSoporte): mixed
     {
         try {
             $cliente = $this->socios[$numeroCliente];
-            $cliente->alquilar($this->productos[$numSoporte]);
-            $this->productos[$numSoporte]->alquilado = true;
+            $cliente->retornar($numSoporte);
         } catch (VideoclubException $e){
             echo $e->getMessage();
+            return null;
         }
-
         return $this;
+    }
+
+    public function devolverSocioProductos(int $numSocio,array $numerosProductos): mixed
+    {
+        try {
+            // Cliente existe
+            if (!isset($this->socios[$numSocio])){
+                throw new ClienteNoEncontradoException("<p>Cliente $numeroCliente no existe</p>");
+            }
+
+            foreach ($numerosProductos as $producto)
+            {
+                $this->devolverSocioProducto($numSocio,$producto);
+            }
+            return $this;
+        } catch (VideoclubException $e){
+            echo $e->getMessage();
+            return null;
+        }
     }
 }

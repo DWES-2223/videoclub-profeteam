@@ -4,7 +4,6 @@ namespace Dwes\ProyectoVideoClub;
 use Dwes\ProyectoVideoClub\Util\CupoSuperadoException;
 use Dwes\ProyectoVideoClub\Util\SoporteNoEncontradoException;
 use Dwes\ProyectoVideoClub\Util\SoporteYaAlquiladoException;
-use function PHPUnit\Framework\throwException;
 
 class Cliente
 {
@@ -38,6 +37,14 @@ class Cliente
         return $this->numSoportesAlquilados;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getMaxAlquilerConcurrente()
+    {
+        return $this->maxAlquilerConcurrente;
+    }
+
     public function muestraResumen()
     {
         echo "<p><strong>Cliente $this->numero:</strong>$this->nombre<br/>Alquiles actuales: "
@@ -57,6 +64,7 @@ class Cliente
         }
         if (isset($this->soportesAlquilados[$numSoporte])) {
             $this->numSoportesAlquilados --;
+            $this->soportesAlquilados[$numSoporte]->alquilado = false;
             unset($this->soportesAlquilados[$numSoporte]);
             echo 'Devolución correcta';
             return true;
@@ -89,6 +97,7 @@ class Cliente
         $this->numSoportesAlquilados ++;
         echo '<p><strong>Alquilado soporte a: </strong>'.$this->nombre.'</p>';
         $s->muestraResumen();
+        $s->alquilado = true;
         return $this;
 
     }
