@@ -58,7 +58,7 @@ class Videoclub
     {
         $this->productos[$producto->getNumero()] = $producto;
         $this->numProductos++;
-        echo '<br>Incluido Soporte'.$producto->getNumero();
+        //echo '<br>Incluido Soporte'.$producto->getNumero();
     }
 
     public function incluirCintaVideo($titulo, $precio, $duracion)
@@ -85,7 +85,7 @@ class Videoclub
         $this->socios[$socio->getNumero()] = $socio;
         $this->numSocios++;
 
-        echo '<br>Incluido Socio'.$socio->getNumero();
+        //echo '<br>Incluido Socio'.$socio->getNumero();
     }
 
     public function listarProductos()
