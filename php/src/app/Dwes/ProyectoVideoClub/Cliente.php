@@ -9,6 +9,8 @@ class Cliente
 {
     protected $numSoportesAlquilados = 0;
     protected $soportesAlquilados = array();
+    protected $username;
+    protected $password;
 
     public function __construct(protected $nombre, protected $numero, protected $maxAlquilerConcurrente=3)
     {}

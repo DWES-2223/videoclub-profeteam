@@ -28,6 +28,19 @@ class LoginCest
 
     }
 
+    public function tryListadoTest(AcceptanceTester $I)
+    {
+        $I->amOnPage('/index.php');
+        $I->fillField('username','admin');
+        $I->fillField('password','admin');
+        $I->click('submit');
+        $I->seeInCurrentUrl('/mainAdmin.php');
+        $I->see('admin');
+        $I->see('Logout');
+        $I->see('God of War');
+        $I->see('Amancio Ortega');
+    }
+
 
 
     /*

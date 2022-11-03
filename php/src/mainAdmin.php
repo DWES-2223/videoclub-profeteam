@@ -1,5 +1,8 @@
 <?php
 session_start();
+include_once("./autoload.php");
+use Dwes\ProyectoVideoClub\Videoclub;
+
 if (!isset($_SESSION['username'])){
     header("Location:index.php");
 }
@@ -16,6 +19,10 @@ if (!isset($_SESSION['username'])){
     <body>
     <?php include_once ("main.php") ?>
     <?php
+        $vc = unserialize($_SESSION['videoclub']);
+
+        $vc->listarProductos();
+        $vc->listarSocios();
 
     ?>
     </body>
