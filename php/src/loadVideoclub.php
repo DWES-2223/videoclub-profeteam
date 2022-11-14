@@ -1,5 +1,5 @@
 <?php
-include_once("./autoload.php");
+require('./../vendor/autoload.php');
 use Dwes\ProyectoVideoClub\Videoclub;
 
 $vc = new Videoclub("Severo 8A");
@@ -16,5 +16,7 @@ $vc->incluirCintaVideo("El nombre de la Rosa", 1.5, 140);
 //voy a crear algunos socios
 $vc->incluirSocio("Amancio Ortega");
 $vc->incluirSocio("Pablo Picasso", 2);
+
+$vc->alquilaSocioProducto(0, 2)->alquilaSocioProducto(0, 3)->alquilaSocioProducto(0,6);
 
 return $vc;

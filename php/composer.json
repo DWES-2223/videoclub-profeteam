@@ -4,7 +4,7 @@
     "license" : "MIT",
     "autoload": {
         "psr-4": {
-            "Igomis\\Phpserve\\": "default_site/src/"
+            "Dwes\\": "src/app/Dwes"
         }
     },
     "authors": [
@@ -17,5 +17,8 @@
         "codeception/codeception": "^5.0",
         "codeception/module-phpbrowser": "^3.0",
         "codeception/module-asserts": "^3.0"
+    },
+    "require": {
+        "monolog/monolog": "^3.2"
     }
 }

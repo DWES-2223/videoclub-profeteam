@@ -12,7 +12,7 @@ class JuegoTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        include_once("./src/autoload.php");
+        require_once('./vendor/autoload.php');
     }
 
     // tests

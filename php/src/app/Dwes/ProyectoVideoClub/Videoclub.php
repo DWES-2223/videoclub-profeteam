@@ -6,6 +6,8 @@ use Dwes\ProyectoVideoClub\Util\ClienteNoEncontradoException;
 use Dwes\ProyectoVideoClub\Util\CupoSuperadoException;
 use Dwes\ProyectoVideoClub\Util\SoporteYaAlquiladoException;
 use Dwes\ProyectoVideoClub\Util\VideoclubException;
+use Dwes\ProyectoVideoClub\Util\LogFactory;
+use Monolog\Logger;
 
 class Videoclub
 {
@@ -17,8 +19,11 @@ class Videoclub
 
     protected $socios = [];
 
+    protected Logger $log;
+
     public function __construct(protected $nombre)
     {
+        $this->log = LogFactory::getLogger();
     }
 
     /**
@@ -58,7 +63,17 @@ class Videoclub
     {
         $this->productos[$producto->getNumero()] = $producto;
         $this->numProductos++;
-        //echo '<br>Incluido Soporte'.$producto->getNumero();
+        $this->log->info('Incluido Soporte', ['numero' => $producto->getNumero()]);
+    }
+
+    public function buscaSocio($username)
+    {
+        foreach ($this->getSocios() as $socio) {
+            if ($socio->getUserName() === $username) {
+                return $socio;
+            }
+        }
+        return false;
     }
 
     public function incluirCintaVideo($titulo, $precio, $duracion)
@@ -79,13 +94,14 @@ class Videoclub
         $this->incluirProducto($juego);
     }
 
-    public function incluirSocio($nombre, $maxAlquilesConcurrentes = 3)
+    public function incluirSocio($nombre, $maxAlquilesConcurrentes = 3,$username=null,$password='1234')
     {
-        $socio = new Cliente($nombre, $this->numSocios, $maxAlquilesConcurrentes);
+        $socio = new Cliente($nombre, $this->numSocios, $maxAlquilesConcurrentes,$username,$password);
         $this->socios[$socio->getNumero()] = $socio;
         $this->numSocios++;
 
-        //echo '<br>Incluido Socio'.$socio->getNumero();
+        $this->log->info('Incluido Socio',['socio' => $socio->getNumero()]);
+
     }
 
     public function listarProductos()
@@ -101,6 +117,8 @@ class Videoclub
     {
         echo "<p>Listado de los $this->numSocios socios del videoclub:";
         foreach ($this->socios as $socio) {
+            echo '<a id="mod_'.$socio->getUsername().'" class="btn btn-info" href="formUpdateCliente.php?socio='.$socio->getUsername().'">Modificar Perfil</a>';
+            echo '<a id="del_'.$socio->getUsername().'" class="btn btn-danger" href="removeCliente.php?socio='.$socio->getUsername().'" onclick="return confirm('."'Estàs segur?')".'" >Esborrar Usuari</a>';
             $socio->muestraResumen();
         }
         echo "</p>";
@@ -116,6 +134,7 @@ class Videoclub
             $cliente->alquilar($this->productos[$numSoporte]);
         } catch (VideoclubException $e){
             echo $e->getMessage();
+            $this->log->warning($e->getMessage());
         }
 
         return $this;
@@ -149,6 +168,7 @@ class Videoclub
             return $this;
         } catch (VideoclubException $e){
             echo $e->getMessage();
+            $this->log->warning($e->getMessage());
             return null;
         }
     }
@@ -159,9 +179,14 @@ class Videoclub
             $cliente = $this->socios[$numeroCliente];
             $cliente->retornar($numSoporte);
         } catch (VideoclubException $e){
-            echo $e->getMessage();
-            return null;
+            $this->log->warning($e->getMessage());
         }
+        return $this;
+    }
+
+    public function borraSocio($numeroCliente) {
+        unset($this->socios[$numeroCliente]);
+        $this->numSocios --;
         return $this;
     }
 
@@ -178,9 +203,10 @@ class Videoclub
                 $this->devolverSocioProducto($numSocio,$producto);
             }
             return $this;
-        } catch (VideoclubException $e){
+        } catch (VideoclubException $e) {
             echo $e->getMessage();
-            return null;
+            $this->log->warning($e->getMessage());
+            return $this;
         }
     }
 }

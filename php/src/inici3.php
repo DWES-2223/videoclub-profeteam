@@ -1,5 +1,5 @@
 <?php
-include_once("./autoload.php");
+require('./../vendor/autoload.php');
 
 use Dwes\ProyectoVideoClub\Videoclub;
 

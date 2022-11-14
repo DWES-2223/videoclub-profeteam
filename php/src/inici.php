@@ -1,6 +1,6 @@
 <?php
 
-include_once "./autoload.php";
+require('./../vendor/autoload.php');
 
 use Dwes\ProyectoVideoClub\CintaVideo;
 use Dwes\ProyectoVideoClub\Dvd;

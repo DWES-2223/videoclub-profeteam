@@ -39,32 +39,33 @@ class LoginCest
         $I->see('Logout');
         $I->see('God of War');
         $I->see('Amancio Ortega');
+        $I->see('amancio');
+        $I->see('pablo');
     }
 
-
-
-    /*
-
-    public function try414Test(AcceptanceTester $I)
+    public function tryLoginUserTest(AcceptanceTester $I)
     {
-        $I->amOnPage('/414.php');
-        $I->seeInCurrentUrl('/410.html');
-        $I->amOnPage('/410.html');
-        $I->fillField('username','usuari');
-        $I->fillField('password','usuari');
+        $I->amOnPage('/index.php');
+        $I->fillField('username','amancio');
+        $I->fillField('password','1234');
         $I->click('submit');
-        $I->seeInCurrentUrl('/412.php');
-        $I->click('Sèries');
-        $I->seeInCurrentUrl('/414.php');
-        $I->seeInSource('<h2>Llista de sèries</h2>');
-        $I->seeInSource('<li>Walking dead</li>');
-        $I->click('Pel·licules');
-        $I->seeInSource('<h2>Llista de pel·licules</h2>');
-        $I->seeInSource('<li>Terminator 2</li>');
-        $I->click('Logout');
-        $I->seeInCurrentUrl('/410.html');
-        $I->amOnPage('/412.php');
-        $I->seeInCurrentUrl('/410.html');
+        $I->seeInCurrentUrl('/mainCliente.php');
+        $I->see('amancio');
+        $I->see('Logout');
+        $I->see('El cliente tiene 3 soportes alquilados.');
     }
-    */
+
+    public function tryFailUserTest(AcceptanceTester $I)
+    {
+        $I->amOnPage('/index.php');
+        $I->fillField('username','amancio');
+        $I->fillField('password','12345');
+        $I->click('submit');
+        $I->seeInCurrentUrl('/index.php');
+        $I->seeInSource('<input type="text" name="username" placeholder="username" value="amancio"/>');
+    }
+
+
+
+
 }

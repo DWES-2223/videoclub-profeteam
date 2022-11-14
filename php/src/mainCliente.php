@@ -10,7 +10,7 @@ if (!isset($_SESSION['username'])){
 <!DOCTYPE>
 <html lang="es">
     <head>
-        <title>Crear Client</title>
+        <title>Videoclub</title>
     </head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -20,9 +20,10 @@ if (!isset($_SESSION['username'])){
     <?php include_once ("main.php") ?>
     <?php
         $vc = unserialize($_SESSION['videoclub']);
-        $vc->listarProductos();
-        $vc->listarSocios();
+        $username = $_SESSION['username'];
+        $socio = $vc->buscaSocio($username);
+        $socio->listarAlquileres();
     ?>
-    <a id="Crear" class="btn btn-primary" href="formCreateCliente.php">Crear nou client</a>
+    <a id="perfil" class="btn btn-info" href="formUpdateCliente.php?socio=<?= $username ?>">Modificar Perfil</a>
     </body>
 </html>
