@@ -11,9 +11,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.quality.outputs.test }}
-
+   
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
@@ -22,6 +20,5 @@ jobs:
       run: docker container exec php composer update
     - name: Run test
       run: docker container exec php ./vendor/bin/codecept run
-    - id: quality
-      name: Run qualityOfCode
-      run: docker container exex php ./vendor/bin/phpcs -n ./src >> $GITHUB_OUTPUT
+    - name: Run qualityOfCode
+      run: docker container exec php ./vendor/bin/phpcs -n ./src >> $GITHUB_OUTPUT
