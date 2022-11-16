@@ -12,6 +12,7 @@ class CintaVideo extends Soporte
      * @param $precio
      * @param $duracion
      */
+
     public function __construct($titulo, $numero, $precio, protected $duracion)
     {
         parent::__construct($titulo, $numero, $precio);
