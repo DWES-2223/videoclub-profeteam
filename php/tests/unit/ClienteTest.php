@@ -15,7 +15,7 @@ class ClienteTest extends \Codeception\Test\Unit
     
     protected function _before()
     {
-        include_once("./src/autoload.php");
+        require_once('./vendor/autoload.php');
         $this->exceptions = file_exists('./src/app/Dwes/ProyectoVideoClub/Util/VideoclubException.php');
 
     }
@@ -68,4 +68,6 @@ class ClienteTest extends \Codeception\Test\Unit
         $this->assertEquals(true, $cliente->retornar(22));
         $this->assertEquals(0, $cliente->getNumSoportesAlquilados());
     }
+
+
 }

@@ -1,9 +1,19 @@
 <?php
 namespace Dwes\ProyectoVideoClub;
 
-
+/**
+ *    Classe per a guardar els Jocs que exten de Suport
+ */
 class Juego extends Soporte
 {
+    /**
+     * @param $titulo
+     * @param $numero
+     * @param $precio
+     * @param $consola
+     * @param $minNumJugadores
+     * @param $maxNumJugadores
+     */
     public function __construct(
         $titulo,
         $numero,
@@ -15,6 +25,9 @@ class Juego extends Soporte
         parent::__construct($titulo, $numero, $precio);
     }
 
+    /**
+     * @return string
+     */
     public function muestraJugadoresPosibles()
     {
         $output = "Para ";
@@ -26,6 +39,9 @@ class Juego extends Soporte
         return $output;
     }
 
+    /**
+     * @return void
+     */
     public function muestraResumen()
     {
         echo "<br>Juego para ".$this->consola;
