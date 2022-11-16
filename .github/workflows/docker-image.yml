@@ -20,5 +20,5 @@ jobs:
       run: docker container exec php composer update
     - name: Run test
       run: docker container exec php ./vendor/bin/codecept run
-    - name: Run qualityOfCode
-      run: docker container exec php ./vendor/bin/phpcs -n ./src >> $GITHUB_OUTPUT
+    - name: Run test
+      run: docker container exec php ./vendor/bin/phpcs -n ./src 
