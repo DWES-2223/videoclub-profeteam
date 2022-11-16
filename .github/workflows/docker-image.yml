@@ -21,4 +21,4 @@ jobs:
     - name: Run test
       run: docker container exec php ./vendor/bin/codecept run
     - name: Run test
-      run: docker container exec php ./vendor/bin/phpcs -n ./src 
+      run: docker container exec php ./vendor/bin/phpcs -n .
