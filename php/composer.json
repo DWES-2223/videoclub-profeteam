@@ -19,6 +19,7 @@
         "codeception/module-asserts": "^3.0"
     },
     "require": {
-        "monolog/monolog": "^3.2"
+        "monolog/monolog": "^3.2",
+        "fabpot/goutte": "^4.0"
     }
 }

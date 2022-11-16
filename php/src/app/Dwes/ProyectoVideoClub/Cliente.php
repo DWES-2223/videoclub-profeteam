@@ -7,13 +7,33 @@ use Dwes\ProyectoVideoClub\Util\SoporteNoEncontradoException;
 use Dwes\ProyectoVideoClub\Util\SoporteYaAlquiladoException;
 use Monolog\Logger;
 
+/**
+ *     Classe per a guardar els socis del videoclub
+ */
 class Cliente
 {
+    /**
+     * @var int
+     */
     protected $numSoportesAlquilados = 0;
+
+    /**
+     * @var array
+     */
     protected $soportesAlquilados = array();
+
+    /**
+     * @var \Monolog\Logger|\Psr\Log\LoggerInterface
+     */
     protected Logger $log;
 
-
+    /**
+     * @param $nombre
+     * @param $numero
+     * @param $maxAlquilerConcurrente
+     * @param $username
+     * @param $password
+     */
     public function __construct(protected $nombre,
         protected $numero,
         protected $maxAlquilerConcurrente=3,
@@ -89,27 +109,46 @@ class Cliente
         return $this->maxAlquilerConcurrente;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNombre()
     {
         return $this->nombre;
     }
 
+    /**
+     * @param $nombre
+     * @return void
+     */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
     }
 
+    /**
+     * @return void
+     */
     public function muestraResumen()
     {
         echo "<p>$this->username = <strong>Cliente $this->numero:</strong>$this->nombre<br/>Alquiles actuales: "
             .count($this->soportesAlquilados)."</p>";
     }
 
+    /**
+     * @param \Dwes\ProyectoVideoClub\Soporte $s
+     * @return bool
+     */
     public function tienesAlquilado(Soporte $s):bool
     {
         return isset($this->soportesAlquilados[$s->getNumero()]);
     }
 
+    /**
+     * @param int $numSoporte
+     * @return mixed
+     * @throws \Dwes\ProyectoVideoClub\Util\SoporteNoEncontradoException
+     */
     public function retornar(int $numSoporte): mixed
     {
         if ($this->numSoportesAlquilados == 0) {
@@ -129,11 +168,17 @@ class Cliente
         '<p>No se ha podido encontrar el soporte en los alquileres de este cliente</p>');
     }
 
+    /**
+     * @return array
+     */
     public function getAlquileres()
     {
        return $this->soportesAlquilados;
     }
 
+    /**
+     * @return void
+     */
     public function listarAlquileres(): void
     {
         echo "El cliente tiene $this->numSoportesAlquilados soportes alquilados.";
@@ -143,6 +188,12 @@ class Cliente
 
     }
 
+    /**
+     * @param \Dwes\ProyectoVideoClub\Soporte $s
+     * @return mixed
+     * @throws \Dwes\ProyectoVideoClub\Util\CupoSuperadoException
+     * @throws \Dwes\ProyectoVideoClub\Util\SoporteYaAlquiladoException
+     */
     public function alquilar(Soporte $s):mixed
     {
         if ($this->tienesAlquilado($s)) {

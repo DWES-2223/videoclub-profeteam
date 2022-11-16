@@ -1,1 +1,1 @@
-docker container exec -it php ./vendor/bin/codecept run --html
+docker container exec -it php ./vendor/bin/codecept run tests/unit/ScrapingTest.php --html
